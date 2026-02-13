@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Roshni 💌</title>
+
+  <!-- Google Fonts: Cormorant Garamond (romantic, editorial) + Nunito (soft, warm body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       CSS VARIABLES
+       ============================================= */
+    :root {
+      --deep:        #a8294a;
+      --mid:         #d4476b;
+      --light:       #f07096;
+      --blush:       #fde8ef;
+      --cream:       #fff9f6;
+      --gold:        #c9873a;
+      --gold-light:  #f0c97a;
+      --text-dark:   #320d1a;
+      --text-mid:    #7a2a45;
+      --glow:        rgba(168, 41, 74, 0.22);
+    }
+
+    /* =============================================
+       BASE
+       ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* Layered background mesh */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 15% 25%,  rgba(240, 112, 150, 0.40) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 75%,  rgba(212, 71, 107, 0.28) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 5%,   rgba(201, 135, 58, 0.14) 0%, transparent 40%),
+        radial-gradient(ellipse at 30% 90%,  rgba(168, 41, 74,  0.18) 0%, transparent 45%),
+        linear-gradient(150deg, #fff4f8 0%, #fde8ef 55%, #ffd5e5 100%);
+      z-index: -2;
+      animation: bgDrift 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgDrift {
+      0%   { filter: hue-rotate(0deg)   brightness(1);    }
+      100% { filter: hue-rotate(10deg)  brightness(1.03); }
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* =============================================
+       FLOATING HEART PARTICLES
+       ============================================= */
+    #hearts-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .heart-particle {
+      position: absolute;
+      bottom: -60px;
+      opacity: 0;
+      animation: floatUp linear infinite;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(0)      rotate(0deg)  scale(0.5); opacity: 0;    }
+      8%   { opacity: 0.5; }
+      85%  { opacity: 0.3; }
+      100% { transform: translateY(-110vh) rotate(22deg) scale(1.2); opacity: 0;    }
+    }
+
+    /* =============================================
+       SCREENS
+       ============================================= */
+    .screen {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.25rem 3rem;
+      text-align: center;
+    }
+
+    .screen.hidden { display: none; }
+
+    /* =============================================
+       CARD
+       ============================================= */
+    .card {
+      background: rgba(255, 249, 246, 0.84);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1.5px solid rgba(255, 255, 255, 0.72);
+      border-radius: 30px;
+      padding: 2.8rem 2.6rem 2.4rem;
+      max-width: 540px;
+      width: 100%;
+      box-shadow:
+        0 10px 50px var(--glow),
+        0 2px 8px rgba(255,255,255,0.55) inset;
+      animation: cardIn 0.75s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(42px) scale(0.93); }
+      to   { opacity: 1; transform: translateY(0)    scale(1);    }
+    }
+
+    /* Decorative ribbon */
+    .card-ribbon {
+      font-size: 0.82rem;
+      letter-spacing: 0.65em;
+      color: var(--light);
+      margin-bottom: 1.3rem;
+      display: block;
+      animation: ribbonPulse 2.8s ease-in-out infinite;
+    }
+
+    @keyframes ribbonPulse {
+      0%, 100% { opacity: 0.55; transform: scale(1);    }
+      50%       { opacity: 1;    transform: scale(1.07); }
+    }
+
+    /* =============================================
+       BIG EMOJI / ICON
+       ============================================= */
+    .big-icon {
+      font-size: clamp(3.2rem, 11vw, 5rem);
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.5rem;
+      animation: heartbeat 1.5s ease-in-out infinite;
+      filter: drop-shadow(0 4px 14px rgba(168,41,74,0.38));
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      15%       { transform: scale(1.20); }
+      30%       { transform: scale(1); }
+      45%       { transform: scale(1.12); }
+    }
+
+    /* =============================================
+       TYPOGRAPHY
+       ============================================= */
+    .name-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.82rem;
+      font-style: italic;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    h1, h2 {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--deep);
+      line-height: 1.22;
+    }
+
+    h1 { font-size: clamp(2rem, 6.5vw, 3rem); font-weight: 700; margin-bottom: 0.5rem; }
+    h2 { font-size: clamp(1.6rem, 5.5vw, 2.4rem); font-weight: 600; margin-bottom: 0.6rem; }
+
+    .body-text {
+      font-size: clamp(0.97rem, 2.5vw, 1.08rem);
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin: 0.9rem 0 1.6rem;
+      font-weight: 400;
+    }
+
+    /* =============================================
+       BUTTONS — general
+       ============================================= */
+    .btn {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      padding: 0.85rem 2.4rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--gold-light);
+      outline-offset: 3px;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.16);
+      opacity: 0;
+      transition: opacity 0.2s;
+      border-radius: inherit;
+    }
+
+    .btn:hover::after { opacity: 1; }
+
+    /* Primary (rose) */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--mid) 0%, var(--deep) 100%);
+      color: #fff;
+      box-shadow: 0 6px 26px rgba(168,41,74,0.42), 0 2px 4px rgba(0,0,0,0.08);
+    }
+
+    .btn-primary:hover  { transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 34px rgba(168,41,74,0.55); }
+    .btn-primary:active { transform: scale(0.97); }
+
+    /* Gold (accent) */
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+      color: var(--text-dark);
+      box-shadow: 0 6px 22px rgba(201,135,58,0.38);
+    }
+
+    .btn-gold:hover  { transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 30px rgba(201,135,58,0.55); }
+    .btn-gold:active { transform: scale(0.97); }
+
+    /* YES on landing */
+    .btn-yes { min-width: 140px; }
+
+    /* NO (roaming) */
+    .btn-no {
+      background: linear-gradient(135deg, #e0d8d8 0%, #ccc4c4 100%);
+      color: #aaa;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+      min-width: 120px;
+      position: fixed;
+      z-index: 99;
+      transition: none;
+    }
+
+    .btn-no::before {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text-dark);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.72rem;
+      white-space: nowrap;
+      padding: 4px 10px;
+      border-radius: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .btn-no:hover::before { opacity: 1; }
+
+    .btn-no.idle-wiggle { animation: wiggle 3s ease-in-out 1.2s 2; }
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      20%  { transform: rotate(-7deg); }
+      40%  { transform: rotate(7deg);  }
+      60%  { transform: rotate(-4deg); }
+      80%  { transform: rotate(4deg);  }
+    }
+
+    /* =============================================
+       PAGE 1 — landing
+       ============================================= */
+    .roshni-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 7vw, 3.4rem);
+      font-weight: 700;
+      color: var(--deep);
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
+
+    .roshni-title span {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .ask-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.35rem, 4.5vw, 1.75rem);
+      font-style: italic;
+      color: var(--text-mid);
+      margin: 1rem 0 2rem;
+      line-height: 1.5;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* =============================================
+       PAGE 2 — celebration
+       ============================================= */
+    .celebration-emoji {
+      font-size: clamp(3rem, 10vw, 4.5rem);
+      display: block;
+      margin-bottom: 0.4rem;
+      animation: bounce 1.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0) rotate(-4deg); }
+      to   { transform: translateY(-10px) rotate(4deg); }
+    }
+
+    .celebration-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.55rem, 5vw, 2.3rem);
+      font-weight: 700;
+      color: var(--deep);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    /* =============================================
+       PAGE 3 — perks
+       ============================================= */
+    .perks-header {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.7rem, 5.5vw, 2.5rem);
+      font-weight: 700;
+      font-style: italic;
+      color: var(--deep);
+      margin-bottom: 0.3rem;
+    }
+
+    .perks-sub {
+      font-size: 0.88rem;
+      color: var(--gold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1.6rem;
+    }
+
+    .perks-list {
+      list-style: none;
+      text-align: left;
+      margin: 0 auto 1.8rem;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .perks-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background: rgba(255,255,255,0.68);
+      border: 1.5px solid rgba(212, 71, 107, 0.14);
+      border-radius: 14px;
+      padding: 0.75rem 1rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: perkIn 0.45s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    .perk-num {
+      background: linear-gradient(135deg, var(--mid), var(--deep));
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 1rem;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    @keyframes perkIn {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* =============================================
+       PAGE 4 — promise
+       ============================================= */
+    .promise-icon {
+      font-size: clamp(3rem, 10vw, 4.5rem);
+      display: block;
+      margin-bottom: 0.4rem;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 8px  rgba(168,41,74,0.4)); transform: scale(1); }
+      to   { filter: drop-shadow(0 0 22px rgba(168,41,74,0.8)); transform: scale(1.1); }
+    }
+
+    .promise-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 5vw, 2.1rem);
+      font-weight: 700;
+      color: var(--deep);
+      margin-bottom: 1.2rem;
+      line-height: 1.3;
+    }
+
+    .promise-scroll {
+      background: linear-gradient(145deg, rgba(255,248,242,0.9), rgba(253,232,239,0.85));
+      border: 1.5px solid rgba(201,135,58,0.30);
+      border-radius: 18px;
+      padding: 1.5rem 1.6rem;
+      margin: 0 auto 1.4rem;
+      max-width: 460px;
+      position: relative;
+    }
+
+    .promise-scroll::before,
+    .promise-scroll::after {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      color: var(--gold-light);
+      line-height: 1;
+      position: absolute;
+    }
+
+    .promise-scroll::before { content: '❝'; top: -0.4rem; left: 0.6rem; }
+    .promise-scroll::after  { content: '❞'; bottom: -1.1rem; right: 0.6rem; }
+
+    .promise-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.05rem, 3vw, 1.2rem);
+      font-style: italic;
+      line-height: 1.82;
+      color: var(--text-mid);
+      text-align: left;
+    }
+
+    .promise-sign {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--gold);
+      margin-top: 1.1rem;
+      display: block;
+      text-align: right;
+    }
+
+    .forever-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--mid), var(--deep));
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.45rem 1.2rem;
+      border-radius: 50px;
+      margin-top: 0.6rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+    .footer-note {
+      margin-top: 1.4rem;
+      font-size: 0.72rem;
+      color: rgba(122,42,69,0.40);
+      font-style: italic;
+      letter-spacing: 0.03em;
+    }
+
+    /* =============================================
+       CONFETTI
+       ============================================= */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    /* =============================================
+       PAGE INDICATOR DOTS
+       ============================================= */
+    .page-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 1.4rem;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--light);
+      opacity: 0.3;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .dot.active { opacity: 1; transform: scale(1.35); background: var(--deep); }
+
+    /* =============================================
+       RESPONSIVE
+       ============================================= */
+    @media (max-width: 480px) {
+      .card { padding: 2rem 1.4rem 2rem; }
+      .btn  { padding: 0.78rem 1.7rem; font-size: 1.05rem; }
+      .promise-scroll { padding: 1.2rem 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Floating heart particles -->
+<div id="hearts-bg" aria-hidden="true"></div>
+
+<!-- Confetti canvas -->
+<canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+
+<!-- ============================================================
+     PAGE 1 — The Proposal
+     ============================================================ -->
+<main id="page-1" class="screen" role="main">
+  <div class="card">
+    <span class="card-ribbon" aria-hidden="true">♥ &nbsp; ♥ &nbsp; ♥</span>
+    <span class="name-tag" aria-hidden="true">a letter from ur wannabe shauhar 😝</span>
+    <span class="big-icon" aria-hidden="true">💌</span>
+
+    <h1 class="roshni-title">
+      <span>Roshni,</span>
+    </h1>
+    <p class="ask-text" id="ask-text"></p>
+
+    <div class="btn-row">
+      <button
+        id="btn-yes"
+        class="btn btn-primary btn-yes"
+        aria-label="Yes, I will be Abdullah's Valentine!"
+      ></button>
+    </div>
+
+    <div class="page-dots" aria-label="Page 1 of 4">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+    <p class="footer-note" id="footer-p1"></p>
+  </div>
+</main>
+
+
+<!-- ============================================================
+     PAGE 2 — Celebration
+     ============================================================ -->
+<section id="page-2" class="screen hidden" aria-label="Celebration">
+  <div class="card">
+    <span class="card-ribbon" aria-hidden="true">♥ &nbsp; ♥ &nbsp; ♥</span>
+    <span class="name-tag" aria-hidden="true">congratulations, babu 🌹</span>
+    <span class="celebration-emoji" aria-hidden="true" id="p2-emoji"></span>
+
+    <h2 class="celebration-heading" id="p2-heading"></h2>
+    <p class="body-text" id="p2-body"></p>
+
+    <button id="btn-p2-next" class="btn btn-primary" aria-label="See the perks of dating Abdullah"></button>
+
+    <div class="page-dots" aria-label="Page 2 of 4">
+      <span class="dot"></span>
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+    <p class="footer-note" id="footer-p2"></p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PAGE 3 — Perks
+     ============================================================ -->
+<section id="page-3" class="screen hidden" aria-label="Perks of dating Abdullah">
+  <div class="card">
+    <span class="card-ribbon" aria-hidden="true">♥ &nbsp; ♥ &nbsp; ♥</span>
+    <span class="name-tag" aria-hidden="true">exclusively for meri jaan</span>
+    <span class="big-icon" aria-hidden="true">🎁</span>
+
+    <h2 class="perks-header" id="p3-heading"></h2>
+    <p class="perks-sub" id="p3-sub"></p>
+
+    <ul class="perks-list" id="perks-list" aria-label="Perks of dating Abdullah"></ul>
+
+    <button id="btn-p3-next" class="btn btn-gold" aria-label="Read Abdullah's promise to Roshni"></button>
+
+    <div class="page-dots" aria-label="Page 3 of 4">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot active"></span>
+      <span class="dot"></span>
+    </div>
+
+    <p class="footer-note" id="footer-p3"></p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PAGE 4 — The Promise
+     ============================================================ -->
+<section id="page-4" class="screen hidden" aria-label="Abdullah's promise to Roshni">
+  <div class="card">
+    <span class="card-ribbon" aria-hidden="true">♥ &nbsp; ♥ &nbsp; ♥</span>
+    <span class="name-tag" aria-hidden="true">my promise to you</span>
+    <span class="promise-icon" aria-hidden="true">🌹</span>
+
+    <h2 class="promise-heading" id="p4-heading"></h2>
+
+    <div class="promise-scroll" role="blockquote" aria-label="Abdullah's promise">
+      <p class="promise-text" id="promise-text"></p>
+      <span class="promise-sign" id="promise-sign"></span>
+    </div>
+
+    <span class="forever-badge" aria-label="Forever yours, Roshni">♥ Forever yours, Roshni</span>
+
+    <div class="page-dots" aria-label="Page 4 of 4">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot active"></span>
+    </div>
+
+    <p class="footer-note" id="footer-p4"></p>
+  </div>
+</section>
+
+
+<!-- Elusive No button — lives outside cards so it can roam the full viewport freely -->
+<button
+  id="btn-no"
+  class="btn btn-no idle-wiggle"
+  aria-label="No button — it doesn't want to be clicked, try Yes instead!"
+  data-tip="Not a chance 😏"
+  tabindex="-1"
+  aria-hidden="true"
+></button>
+
+
+<script>
+  /* ===========================================================
+     ╔══════════════════════════════════════════════╗
+     ║     ✏️  EDIT YOUR CONTENT HERE — CONTENT     ║
+     ╚══════════════════════════════════════════════╝
+
+     All the text in this site lives in this one object.
+     Change anything you like, save the file, and open it!
+
+     ── How to host ──────────────────────────────────────────
+     Option 1 · GitHub Pages
+       1. Create a GitHub repo and upload this index.html
+       2. Go to Settings → Pages → Deploy from main branch
+       3. Share the link: yourname.github.io/your-repo-name
+
+     Option 2 · Netlify Drop  (fastest — 10 seconds!)
+       1. Go to netlify.com/drop in your browser
+       2. Drag and drop this index.html onto the page
+       3. Netlify gives you a live URL instantly — free!
+
+     Option 3 · CodePen
+       1. Go to codepen.io → Create New Pen
+       2. Paste ALL of this HTML into the HTML panel
+       3. Set the Pen to public → share the URL
+     ─────────────────────────────────────────────────────── */
+
+  const CONTENT = {
+
+    // ── PAGE 1 — The Proposal ──────────────────────────────
+    ask:      "Will you be my Valentine? 🥺",
+    yesLabel: "Yes, of course! 💕",
+    noLabel:  "No…",
+
+    // ── PAGE 2 — Celebration ───────────────────────────────
+    p2Emoji:   "🎉",
+    p2Heading: "Hehe… You have officially made one of the best decisions of your life.",
+    p2Body:    "Honestly? I already knew you'd say yes. But it still made my heart skip a beat. 🥰",
+    p2Button:  "The perks of dating me →",
+
+    // ── PAGE 3 — Perks ─────────────────────────────────────
+    p3Heading: "The perks of dating me",
+    p3Sub:     "Read carefully, this is a limited offer 😅",
+    perks: [
+      "Always available for you.",
+      "Never think of anyone else but you.",
+      "You are literally the most important person in my life, so I'd do anything for you.",
+    ],
+    p3Button: "Jaan, if you love me click here 💗",
+
+    // ── PAGE 4 — The Promise ───────────────────────────────
+    p4Heading:   "Here's my message for you",
+    promise:     "Jaan, you've shown me the sweetest and happiest days of my life. You've done so much for me in ways I couldn't have imagined. I just want to let you know — I promise that I'll never hurt you. I'll always be there, even when you don't need me, because I do. And I'll try my best to never disappoint you. Jaan, I love you with all my heart and I always will.",
+    promiseSign: "— Your Abdullah ♥",
+
+    // ── SHARED ─────────────────────────────────────────────
+    footerNote: "Made with every bit of love I have for you🌹",
+  };
+
+  /* End of editable section — the rest is logic, don't need to touch it */
+
+
+  /* ===========================================================
+     POPULATE DOM FROM CONTENT
+     =========================================================== */
+  document.getElementById('ask-text').textContent     = CONTENT.ask;
+  document.getElementById('btn-yes').textContent      = CONTENT.yesLabel;
+  document.getElementById('btn-no').textContent       = CONTENT.noLabel;
+
+  document.getElementById('p2-emoji').textContent     = CONTENT.p2Emoji;
+  document.getElementById('p2-heading').textContent   = CONTENT.p2Heading;
+  document.getElementById('p2-body').textContent      = CONTENT.p2Body;
+  document.getElementById('btn-p2-next').textContent  = CONTENT.p2Button;
+
+  document.getElementById('p3-heading').textContent   = CONTENT.p3Heading;
+  document.getElementById('p3-sub').textContent       = CONTENT.p3Sub;
+  document.getElementById('btn-p3-next').textContent  = CONTENT.p3Button;
+
+  document.getElementById('p4-heading').textContent   = CONTENT.p4Heading;
+  document.getElementById('promise-text').textContent = CONTENT.promise;
+  document.getElementById('promise-sign').textContent = CONTENT.promiseSign;
+
+  ['p1','p2','p3','p4'].forEach(id => {
+    document.getElementById(`footer-${id}`).textContent = CONTENT.footerNote;
+  });
+
+  /* Build perks list with staggered entrance animations */
+  const perksList = document.getElementById('perks-list');
+  CONTENT.perks.forEach((perk, i) => {
+    const li  = document.createElement('li');
+    li.style.animationDelay = `${0.15 + i * 0.14}s`;
+
+    const num = document.createElement('span');
+    num.className   = 'perk-num';
+    num.textContent = i + 1;
+    num.setAttribute('aria-hidden', 'true');
+
+    const txt = document.createElement('span');
+    txt.textContent = perk;
+
+    li.appendChild(num);
+    li.appendChild(txt);
+    perksList.appendChild(li);
+  });
+
+
+  /* ===========================================================
+     FLOATING HEARTS — ambient background
+     =========================================================== */
+  const heartsContainer = document.getElementById('hearts-bg');
+  const heartEmojis = ['💕','💗','💖','❤️','🌹','💝','✨','🌸','💫','🎀'];
+
+  function spawnHeart() {
+    const h = document.createElement('span');
+    h.className   = 'heart-particle';
+    h.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+    h.style.left  = `${Math.random() * 100}%`;
+    const dur     = 8 + Math.random() * 9;
+    h.style.fontSize          = `${0.9 + Math.random() * 1.3}rem`;
+    h.style.animationDuration = `${dur}s`;
+    h.style.animationDelay   = `${Math.random() * -dur}s`;
+    heartsContainer.appendChild(h);
+    setTimeout(() => h.remove(), (dur + 1) * 1000);
+  }
+
+  for (let i = 0; i < 20; i++) spawnHeart();
+  setInterval(spawnHeart, 1500);
+
+
+  /* ===========================================================
+     ELUSIVE NO BUTTON — dodge on every interaction
+     =========================================================== */
+  const btnNo = document.getElementById('btn-no');
+
+  function placeNoInitial() {
+    const yesRect = document.getElementById('btn-yes').getBoundingClientRect();
+    const noW     = btnNo.offsetWidth  || 120;
+    const noH     = btnNo.offsetHeight || 50;
+    let x = yesRect.right + 18;
+    let y = yesRect.top + (yesRect.height - noH) / 2;
+    x = Math.max(8, Math.min(window.innerWidth  - noW - 8, x));
+    y = Math.max(8, Math.min(window.innerHeight - noH - 8, y));
+    btnNo.style.left   = `${x}px`;
+    btnNo.style.top    = `${y}px`;
+    btnNo.style.right  = 'auto';
+    btnNo.style.bottom = 'auto';
+  }
+
+  window.addEventListener('load',   placeNoInitial);
+  window.addEventListener('resize', placeNoInitial);
+
+  function dodgeNo() {
+    const noW    = btnNo.offsetWidth  || 120;
+    const noH    = btnNo.offsetHeight || 50;
+    const margin = 14;
+    const x = margin + Math.random() * (window.innerWidth  - noW  - margin * 2);
+    const y = margin + Math.random() * (window.innerHeight - noH  - margin * 2);
+    btnNo.style.transition = 'left 0.24s cubic-bezier(0.34,1.56,0.64,1), top 0.24s cubic-bezier(0.34,1.56,0.64,1)';
+    btnNo.style.left = `${x}px`;
+    btnNo.style.top  = `${y}px`;
+  }
+
+  btnNo.addEventListener('mouseover',  dodgeNo);
+  btnNo.addEventListener('touchstart', dodgeNo, { passive: true });
+  btnNo.addEventListener('focus',      dodgeNo);
+  btnNo.addEventListener('mousedown',  e => { e.preventDefault(); dodgeNo(); });
+  btnNo.addEventListener('click',      e => { e.preventDefault(); dodgeNo(); });
+
+
+  /* ===========================================================
+     CONFETTI — lightweight canvas burst
+     =========================================================== */
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx    = canvas.getContext('2d');
+  const COLORS = ['#d4476b','#a8294a','#f07096','#c9873a','#f0c97a','#ff8fa3','#fff','#ffd5e5'];
+
+  function resizeCanvas() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  function launchConfetti() {
+    const pieces = Array.from({ length: 170 }, () => ({
+      x:     Math.random() * canvas.width,
+      y:     -10 - Math.random() * 70,
+      w:     8 + Math.random() * 9,
+      h:     5 + Math.random() * 5,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      vx:    (Math.random() - 0.5) * 4.5,
+      vy:    1.8 + Math.random() * 4,
+      rot:   Math.random() * Math.PI * 2,
+      rotV:  (Math.random() - 0.5) * 0.2,
+      alpha: 1,
+    }));
+
+    (function tick() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let alive = false;
+      pieces.forEach(p => {
+        p.x   += p.vx;
+        p.y   += p.vy;
+        p.vy  += 0.08;          // gravity
+        p.rot += p.rotV;
+        if (p.y > canvas.height + 20) p.alpha -= 0.05;
+        if (p.alpha > 0) alive = true;
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      });
+      if (alive) requestAnimationFrame(tick);
+      else ctx.clearRect(0, 0, canvas.width, canvas.height);
+    })();
+  }
+
+
+  /* ===========================================================
+     PAGE TRANSITIONS — smooth fade + slide
+     =========================================================== */
+  function goToPage(fromId, toId, fireConfetti) {
+    const from = document.getElementById(fromId);
+    const to   = document.getElementById(toId);
+
+    from.style.transition = 'opacity 0.38s ease, transform 0.38s ease';
+    from.style.opacity    = '0';
+    from.style.transform  = 'translateY(-28px) scale(0.97)';
+
+    setTimeout(() => {
+      from.classList.add('hidden');
+      from.style.opacity    = '';
+      from.style.transform  = '';
+      from.style.transition = '';
+
+      to.classList.remove('hidden');
+      to.setAttribute('tabindex', '-1');
+      to.focus();
+
+      if (fireConfetti) {
+        launchConfetti();
+        setTimeout(launchConfetti, 1000);
+      }
+    }, 360);
+  }
+
+  // Page 1 → 2  (Yes button)
+  const btnYes = document.getElementById('btn-yes');
+
+  function handleYes() {
+    btnNo.style.display = 'none'; // No longer needed after Yes
+    goToPage('page-1', 'page-2', true);
+  }
+
+  btnYes.addEventListener('click', handleYes);
+  btnYes.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleYes(); }
+  });
+
+  // Page 2 → 3
+  document.getElementById('btn-p2-next').addEventListener('click', () => {
+    goToPage('page-2', 'page-3', false);
+  });
+
+  // Page 3 → 4  (the "Jaan" button — fires a final confetti burst too!)
+  document.getElementById('btn-p3-next').addEventListener('click', () => {
+    goToPage('page-3', 'page-4', true);
+  });
+
+</script>
+</body>
+</html>
